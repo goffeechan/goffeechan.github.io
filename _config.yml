@@ -97,9 +97,9 @@ creative_commons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+#scheme: Muse
 #scheme: Mist
-#scheme: Pisces
+scheme: Pisces
 #scheme: Gemini
 
 # Dark Mode
@@ -117,9 +117,9 @@ darkmode: false
 # External url should start with http:// or https://
 menu:
   home: / || fa fa-home
+  archives: /archives/ || fa fa-archive
   categories: /categories/ || fa fa-th
   tags: /tags/ || fa fa-tags
-  #archives: /archives/ || fa fa-archive
   #about: /about/ || fa fa-user
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
@@ -170,7 +170,7 @@ avatar:
   rotated: false
 
 # Posts / Categories / Tags in sidebar.
-site_state: true
+site_state: false
 
 # Social Links
 # Usage: `Key: permalink || icon`
@@ -179,18 +179,18 @@ site_state: true
 social:
   GitHub: https://github.com/goffeechan || fab fa-github
   E-Mail: mailto:goffeechen@gmail.com || fa fa-envelope
-  #Weibo: https://weibo.com/yourname || fab fa-weibo
+  Weibo: https://weibo.com/3214900862/profile?topnav=1&wvr=6&is_all=1 || fab fa-weibo
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
-  #StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
+  StackOverflow: https://stackoverflow.com/users/16611179/goffee-chen || fab fa-stack-overflow
   #YouTube: https://youtube.com/yourname || fab fa-youtube
   #Instagram: https://instagram.com/yourname || fab fa-instagram
   #Skype: skype:yourname?call|chat || fab fa-skype
 
 social_icons:
   enable: true
-  icons_only: false
+  icons_only: true
   transition: false
 
 # Blog rolls
@@ -212,7 +212,7 @@ toc:
   # If true, all words will placed on next lines if header width longer then sidebar width.
   wrap: true
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: true
+  expand_all: false
   # Maximum heading depth of generated toc.
   max_depth: 6
 
