@@ -19,28 +19,34 @@
     var CONFIG = {"hostname":"goffeechan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="十年">
-<meta property="og:url" content="https://goffeechan.github.io/index.html">
+  <meta name="description" content="最近项目在适配Android 12，Android 12限制不能在后台启动foreground service，除非一些特殊情况。因为我们项目中刚好有个场景不符合这个要求，需要寻找解决方案，这才发现工作两年多了，还没写过service相关的代码，和service相关的知识点也忘得一干二净了，所以借此机会温习一下功课。 这篇文章只介绍Service的基本概念和基础用法，关于Service的深入理解后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Android基础】Service">
+<meta property="og:url" content="https://goffeechan.github.io/2021/08/14/BaseAndroid-Service/index.html">
 <meta property="og:site_name" content="十年">
+<meta property="og:description" content="最近项目在适配Android 12，Android 12限制不能在后台启动foreground service，除非一些特殊情况。因为我们项目中刚好有个场景不符合这个要求，需要寻找解决方案，这才发现工作两年多了，还没写过service相关的代码，和service相关的知识点也忘得一干二净了，所以借此机会温习一下功课。 这篇文章只介绍Service的基本概念和基础用法，关于Service的深入理解后">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-14T14:11:55.000Z">
+<meta property="article:modified_time" content="2021-08-15T14:45:51.366Z">
 <meta property="article:author" content="Goffee Chen">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Service">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://goffeechan.github.io/">
+<link rel="canonical" href="https://goffeechan.github.io/2021/08/14/BaseAndroid-Service/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>十年</title>
+  <title>【Android基础】Service | 十年</title>
   
 
 
@@ -149,76 +155,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://goffeechan.github.io/2021/08/15/BaseAndroid-BackgroundLimits/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Goffee Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="十年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/15/BaseAndroid-BackgroundLimits/" class="post-title-link" itemprop="url">【Android基础】后台限制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-08-15 22:26:48 / 修改时间：22:32:39" itemprop="dateCreated datePublished" datetime="2021-08-15T22:26:48+08:00">2021-08-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Android基础</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Background-Execution-Limits"><a href="#Background-Execution-Limits" class="headerlink" title="Background Execution Limits"></a>Background Execution Limits</h2><h2 id="Background-Location-Limits"><a href="#Background-Location-Limits" class="headerlink" title="Background Location Limits"></a>Background Location Limits</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -234,10 +174,9 @@
       <meta itemprop="name" content="十年">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/14/BaseAndroid-Service/" class="post-title-link" itemprop="url">【Android基础】Service</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          【Android基础】Service
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -276,118 +215,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最近项目在适配Android 12，<strong>Android 12限制不能在后台启动foreground service，除非一些特殊情况</strong>。因为我们项目中刚好有个场景不符合这个要求，需要寻找解决方案，这才发现工作两年多了，还没写过service相关的代码，和service相关的知识点也忘得一干二净了，所以借此机会温习一下功课。</p>
+        <p>最近项目在适配Android 12，<strong>Android 12限制不能在后台启动foreground service，除非一些特殊情况</strong>。因为我们项目中刚好有个场景不符合这个要求，需要寻找解决方案，这才发现工作两年多了，还没写过service相关的代码，和service相关的知识点也忘得一干二净了，所以借此机会温习一下功课。</p>
 <p>这篇文章只介绍Service的基本概念和基础用法，关于Service的深入理解后面会单独写文章来介绍。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/14/BaseAndroid-Service/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<span id="more"></span>
+
+<h2 id="Service是什么"><a href="#Service是什么" class="headerlink" title="Service是什么"></a>Service是什么</h2><p><code>Service</code>是Android的四大组件之一。它可以在后台长时间运行。它不提供用户接口。除此之外，其他组件可以通过绑定Service来和它进行通信，甚至是夸进程通信。常见的应用场景有处理网络传输，播放音乐，IO操作，和content provider交互等。</p>
+<blockquote>
+<p><font color="red">注意： Service默认是运行在宿主进程的主线程。</font></p>
+</blockquote>
+<h2 id="Service的三种类型"><a href="#Service的三种类型" class="headerlink" title="Service的三种类型"></a>Service的三种类型</h2><h3 id="Foreground"><a href="#Foreground" class="headerlink" title="Foreground"></a>Foreground</h3><p>顾名思义，foreground service执行的是一些用户能注意到的操作。它必须展示一个<code>Notification</code>直到停止或者不再是foreground。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/workmanager"><code>WorkManager</code></a>提供了灵活的方式去调度任务，可以通过foreground service的方式去运行这些任务。在很多情况下，推荐直接使用WorkManager。</p>
+</blockquote>
+<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>与foreground service对应的就是background service，它执行一些用户不会直接注意到的操作。</p>
+<p>Foreground servie是从Android 8.0 (API 26)引入的，为了避免应用在后台占用太多资源，给用户带来不好的体验，系统开始对在后台执行提出一些限制，具体参考 <a href="/2021/08/15/BaseAndroid-BackgroundLimits/" title="【Android基础】后台限制">【Android基础】后台限制</a>。</p>
+<h3 id="Bound"><a href="#Bound" class="headerlink" title="Bound"></a>Bound</h3><h2 id="Service-vs-Thread"><a href="#Service-vs-Thread" class="headerlink" title="Service vs. Thread"></a>Service vs. Thread</h2><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/guide/components/services">https://developer.android.com/guide/components/services</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/oreo/background">https://developer.android.com/about/versions/oreo/background</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/12/foreground-services">https://developer.android.com/about/versions/12/foreground-services</a></li>
+</ol>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Service/" rel="tag"># Service</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://goffeechan.github.io/2021/08/06/HelloWorld/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Goffee Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="十年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/06/HelloWorld/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-06 22:35:27" itemprop="dateCreated datePublished" datetime="2021-08-06T22:35:27+08:00">2021-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-06 20:44:58" itemprop="dateModified" datetime="2021-12-06T20:44:58+08:00">2021-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello world&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/06/HelloWorld/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/06/HelloWorld/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/15/BaseAndroid-BackgroundLimits/" rel="next" title="【Android基础】后台限制">
+      【Android基础】后台限制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -434,6 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Service是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service%E7%9A%84%E4%B8%89%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">Service的三种类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Foreground"><span class="nav-number">2.1.</span> <span class="nav-text">Foreground</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">2.2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bound"><span class="nav-number">2.3.</span> <span class="nav-text">Bound</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-vs-Thread"><span class="nav-number">3.</span> <span class="nav-text">Service vs. Thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -539,6 +425,25 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'fad777dffc42b6c3e3a1',
+      clientSecret: 'b65ccad9ed6115a095960ad9b996b90125a13ba1',
+      repo        : 'goffeechan.github.io',
+      owner       : 'goffeechan',
+      admin       : ['goffeechan'],
+      id          : '5c7e3594163a5450030ebf63568a56db',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
